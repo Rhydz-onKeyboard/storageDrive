@@ -1,5 +1,5 @@
 const drive = require('./googleAuth');
-const fs = require('fs');
+const { Readable } = require('stream');
 
 
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
   uploadFile: async (fileName, content) => {
     const media = {
       mimeType: 'application/pdf',
-      body: content,
+      body: Readable.from(content),
     }
     const response = await new Promise((resolve, reject) => {
       drive.files.create({
