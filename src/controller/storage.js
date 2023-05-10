@@ -8,14 +8,16 @@ module.exports = {
       const files = await drive.getFiles();
       res.status(code.OK).json({ msg: 'OK', files: files })
     } catch (err) {
+      console.log(err)
       res.status(code.BAD_REQUEST).json({ msg: 'Error fetching data', error: err });
     }
   },
   uploadCV: async (req = request, res = response) => {
     try {
-      const response = await drive.uploadFile();
-      res.status(code.OK).json({ msg: 'OK', fileId: response.data.id })
-    } catch (error) {
+      const { id, content } = req.body;
+      const result = await drive.uploadFile(id, content);
+      res.status(code.OK).json({ msg: 'OK', link: result })
+    } catch (err) {
       console.log(err)
       res.status(code.BAD_REQUEST).json({ Error: err });
     }
@@ -23,7 +25,7 @@ module.exports = {
   deleteCV: async (req = request, res = response) => {
     try {
       const { id } = req.params
-      const response = await drive.deleteFile(id);
+      await drive.deleteFile(id);
       res.status(code.OK).json({ msg: `File deleted` })
     } catch (err) {
       console.log(err)

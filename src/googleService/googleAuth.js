@@ -1,4 +1,6 @@
 const { google } = require('googleapis');
+require('dotenv').config();
+
 const scopes = [
   'https://www.googleapis.com/auth/drive'
 ];

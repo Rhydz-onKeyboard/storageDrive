@@ -6,36 +6,42 @@ module.exports = {
   getFiles: async () => {
     const response = await new Promise((resolve, reject) => {
       drive.files.list({
-        fields: 'files(id, name, webViewLink)'
+        fields: 'files(id, name, webViewLink, kind)'
         // fields: '*'
       }, (err, res) => {
         if (err) reject(err);
         resolve(res);
       });
     });
-    return response.data.files;
+    const { files } = response.data;
+    return files.filter(file => file.id !== process.env.FOLDER_ID).map(f => ({
+      type: f.kind,
+      link: f.webViewLink,
+      id: f.id,
+      name: f.name
+    }))
   },
-  uploadFile: async () => {
+  uploadFile: async (fileName, content) => {
     const media = {
       mimeType: 'application/pdf',
-      body: fs.createReadStream('./src/adiazCV2.pdf'),
+      body: content,
     }
     const response = await new Promise((resolve, reject) => {
       drive.files.create({
         media: media,
         requestBody: {
-          name: 'cvTest4.pdf',
+          name: fileName,
           parents: [
             process.env.FOLDER_ID
           ]
         },
-        fields: 'id',
+        fields: 'webViewLink',
       }, (err, res) => {
         if (err) reject(err);
         resolve(res);
       });
     })
-    return response.data.id;
+    return response.data.webViewLink;
   },
   deleteFile: async (id) => {
     const response = await new Promise((resolve, reject) => {
@@ -43,9 +49,7 @@ module.exports = {
         if (err) reject(err);
         resolve(res);
       });
-      return response;
     })
-
-
+    return response;
   }
 }
