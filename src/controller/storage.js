@@ -16,7 +16,7 @@ module.exports = {
     try {
       const { id } = req.body;
       const { cv } = req.files;
-      const result = await drive.uploadFile(`${id}.pdf`, cv.data);
+      const result = await drive.uploadFile(`${id}.pdf`, cv);
       res.status(code.OK).json({ msg: 'OK', link: result })
     } catch (err) {
       console.log(err)
