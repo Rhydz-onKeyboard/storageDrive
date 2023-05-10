@@ -1,5 +1,5 @@
-const server = require('./server/index.js');
-const routes = require('./routes/index.routes.js');
+const server = require('./src/server/index.js');
+const routes = require('./src/routes/index.routes.js');
 
 
 require('dotenv').config();
