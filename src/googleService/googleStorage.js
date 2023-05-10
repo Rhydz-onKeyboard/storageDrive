@@ -24,7 +24,7 @@ module.exports = {
   uploadFile: async (fileName, content) => {
     const media = {
       mimeType: 'application/pdf',
-      body: fs.createReadStream(content),
+      body: content,
     }
     const response = await new Promise((resolve, reject) => {
       drive.files.create({
