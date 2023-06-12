@@ -1,8 +1,8 @@
 const { Router } = require('express');
 
-const storageRoutes = require('./storage.routes');
+const indeedRoutes = require('./indeed.routes');
 
 const router = Router();
-router.use('/storage', storageRoutes);
+router.use('/indeed', indeedRoutes);
 
 module.exports = router
