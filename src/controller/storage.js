@@ -25,9 +25,20 @@ module.exports = {
   },
   deleteCV: async (req = request, res = response) => {
     try {
-      const { id } = req.params
+      const { id } = req.params;
       await drive.deleteFile(id);
-      res.status(code.OK).json({ msg: `File deleted` })
+      res.status(code.OK).json({ msg: `File deleted` });
+    } catch (err) {
+      console.log(err)
+      res.status(code.BAD_REQUEST).json({ Error: err });
+    }
+  },
+  deleteAllCV: async (req = request, res = response) => {
+    try {
+      const { files } = req.body;
+      console.log(files)
+      await files.map(async f => await drive.deleteFile(f.id))
+      res.status(code.OK).json({ msg: `Files deleted` });
     } catch (err) {
       console.log(err)
       res.status(code.BAD_REQUEST).json({ Error: err });
