@@ -7,7 +7,6 @@ router
   .route('/')
   .get(storageController.findAllCVs)
   .post(storageController.uploadCV)
-  .delete(storageController.deleteAllCV)
 
 router
   .route('/:id')
