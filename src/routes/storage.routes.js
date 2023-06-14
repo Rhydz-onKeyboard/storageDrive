@@ -9,6 +9,10 @@ router
   .post(storageController.uploadCV)
 
 router
+  .route('/indeed')
+  .post(storageController.uploadCVFromIndeed)
+
+router
   .route('/:id')
   .delete(storageController.deleteCV)
 module.exports = router;

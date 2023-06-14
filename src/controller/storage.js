@@ -16,10 +16,18 @@ module.exports = {
     try {
       const { id } = req.body;
       const { cv } = req.files;
-      console.log(req.body)
-      console.log('cv data line 19', cv.data);
       const result = await drive.uploadFile(`${id}.pdf`, cv.data);
       res.status(code.OK).json({ msg: 'OK', link: result })
+    } catch (err) {
+      console.log(err)
+      res.status(code.BAD_REQUEST).json({ Error: err });
+    }
+  },
+  uploadCVFromIndeed: async (req = request, res = response) => {
+    try {
+      console.log(req.body)
+      // const result = await drive.uploadFile
+      res.status(code.OK);
     } catch (err) {
       console.log(err)
       res.status(code.BAD_REQUEST).json({ Error: err });
