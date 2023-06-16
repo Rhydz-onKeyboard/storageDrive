@@ -7,10 +7,11 @@ router
   .route('/')
   .get(storageController.findAllCVs)
   .post(storageController.uploadCV)
+// .delete(storageController.deleteAllCV)
 
-router
-  .route('/indeed')
-  .post(storageController.uploadCVFromIndeed)
+// router
+//   .route('/indeed')
+//   .post(storageController.uploadCVFromIndeed)
 
 router
   .route('/:id')

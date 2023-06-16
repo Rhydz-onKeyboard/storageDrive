@@ -23,18 +23,20 @@ module.exports = {
       res.status(code.BAD_REQUEST).json({ Error: err });
     }
   },
-  uploadCVFromIndeed: async (req = request, res = response) => {
-    try {
-      const { id, file } = req.body
-      console.log('uploadCVFromIndeed', id)
-      console.log('uploadCVFromIndeed', file)
-      // const result = await drive.uploadFile(`${id}.pdf`, data)
-      res.status(code.OK);
-    } catch (err) {
-      console.log(err)
-      res.status(code.BAD_REQUEST).json({ Error: err });
-    }
-  },
+  // uploadCVFromIndeed: async (req = request, res = response) => {
+  //   try {
+  //     const { id } = req.body;
+  //     const { cv } = req.files;
+
+  //     console.log('uploadCVFromIndeed', id)
+  //     console.log('uploadCVFromIndeed', file)
+  //     const result = await drive.uploadFile(`${id}.pdf`, file.data)
+  //     res.status(code.OK).json({ msg: 'OK', link: result });
+  //   } catch (err) {
+  //     console.log(err)
+  //     res.status(code.BAD_REQUEST).json({ Error: err });
+  //   }
+  // },
   deleteCV: async (req = request, res = response) => {
     try {
       const { id } = req.params
@@ -44,5 +46,17 @@ module.exports = {
       console.log(err)
       res.status(code.BAD_REQUEST).json({ Error: err });
     }
-  }
+  },
+  // deleteAllCV: async (req = request, res = response) => {
+  //   try {
+  //     const files = await drive.getFiles();
+  //     files.map(async f => {
+  //       await drive.deleteFile(f.id);
+  //     })
+  //     res.status(code.OK).json({ msg: `Files deleted` })
+  //   } catch (err) {
+  //     console.log(err)
+  //     res.status(code.BAD_REQUEST).json({ Error: err });
+  //   }
+  // },
 }
