@@ -25,8 +25,8 @@ module.exports = {
   uploadCVFromIndeed: async (req = request, res = response) => {
     try {
       const { id, cv } = req.body
-      // console.log(id, cv)
-      const result = await drive.uploadFile(`${id}.pdf`, cv)
+      const pdfData = Buffer.from(cv, 'base64')
+      const result = await drive.uploadFile(`${id}.pdf`, pdfData)
       res.status(code.OK)
         .json({ msg: 'OK', link: result, id })
         .end();
