@@ -1,7 +1,6 @@
 const { response, request } = require('express');
 const { StatusCodes: code } = require('http-status-codes');
 const drive = require('../googleService/googleStorage');
-
 module.exports = {
   findAllCVs: async (req = request, res = response) => {
     try {
@@ -14,29 +13,27 @@ module.exports = {
   },
   uploadCV: async (req = request, res = response) => {
     try {
-      console.log(req.body)
-      // const result = await drive.uploadFile(`${id}.pdf`, cv.data);
-      res.status(code.OK)
-      // .json({ msg: 'OK', link: result })
+      const { id } = req.body;
+      const { cv } = req.files;
+      const result = await drive.uploadFile(`${id}.pdf`, cv.data);
+      res.status(code.OK).json({ msg: 'OK', link: result })
     } catch (err) {
       console.log(err)
       res.status(code.BAD_REQUEST).json({ Error: err });
     }
   },
-  // uploadCVFromIndeed: async (req = request, res = response) => {
-  //   try {
-  //     const { id } = req.body;
-  //     const { cv } = req.files;
-
-  //     console.log('uploadCVFromIndeed', id)
-  //     console.log('uploadCVFromIndeed', file)
-  //     const result = await drive.uploadFile(`${id}.pdf`, file.data)
-  //     res.status(code.OK).json({ msg: 'OK', link: result });
-  //   } catch (err) {
-  //     console.log(err)
-  //     res.status(code.BAD_REQUEST).json({ Error: err });
-  //   }
-  // },
+  uploadCVFromIndeed: async (req = request, res = response) => {
+    try {
+      const { id, cv } = req.body
+      console.log(id, cv)
+      // const result = await drive.uploadFile(`${id}.pdf`, file.data)
+      res.status(code.OK)
+      // .json({ msg: 'OK', link: result, id });
+    } catch (err) {
+      console.log(err)
+      res.status(code.BAD_REQUEST).json({ Error: err });
+    }
+  },
   deleteCV: async (req = request, res = response) => {
     try {
       const { id } = req.params
