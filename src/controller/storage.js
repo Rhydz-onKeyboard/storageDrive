@@ -14,11 +14,10 @@ module.exports = {
   },
   uploadCV: async (req = request, res = response) => {
     try {
-      const { id } = req.body;
-      console.log(req.files)
-      const { cv } = req.files;
-      const result = await drive.uploadFile(`${id}.pdf`, cv.data);
-      res.status(code.OK).json({ msg: 'OK', link: result })
+      console.log(req.body)
+      // const result = await drive.uploadFile(`${id}.pdf`, cv.data);
+      res.status(code.OK)
+      // .json({ msg: 'OK', link: result })
     } catch (err) {
       console.log(err)
       res.status(code.BAD_REQUEST).json({ Error: err });
