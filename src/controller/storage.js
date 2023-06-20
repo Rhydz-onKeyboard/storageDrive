@@ -28,7 +28,7 @@ module.exports = {
       const pdfData = Buffer.from(cv, 'base64')
       const result = await drive.uploadFile(`${id}.pdf`, pdfData)
       res.status(code.OK)
-        .json({ msg: 'OK', link: result, id })
+        .json({ msg: 'OK', link: result })
         .end();
     } catch (err) {
       console.log(err)
